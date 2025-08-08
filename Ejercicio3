@@ -1,60 +1,86 @@
-class Producto: 
-    def __init__(self, nombre, precio, cantidad, codigo):
-        self.nombre = nombre
-        self.precio = precio
-        self.cantidad = cantidad
-        self.codigo = codigo
+import random
+
+class Cuenta:
+    def __init__(self, nombre_titular):
+        self.nombre_titular = nombre_titular
+        self.numero_cuenta = random.randint(10000, 99999)
+        self.saldo = 0
+
+    def depositar(self, cantidad):
+        self.saldo = self.saldo + cantidad
+        return self.saldo
     
-    def vender(self, cantidad_a_vender):
-        if self.cantidad >= cantidad_a_vender:
-            self.cantidad = self.cantidad - cantidad_a_vender
-            print("Producto vendido exitosamente")
+    def retirar(self, cantidad):
+        if self.saldo >= cantidad:
+            self.saldo = self.saldo - cantidad
+            return self.saldo
         else:
-            print("No hay cantidad disponible")
+            print("No hay dinero para retirar")
+            return -1
+        
+    def consultar(self):
+        return self.saldo
+    
+# Programa principal
 
-lista_productos = []
+lista_cuentas= []
 
-print("Bienvenido a la tienda")
+print("Bienvenido al banco")
+
 while True:
-    print("Ingrese la opción deseada")
-    print("1. Agregar producto")
-    print("2. Vender producto")
-    print("3. Mostrar inventario")
-    print("0. Salir")
+    print("Ingrese la opción deseada: ")
+    print("1. Registrar cuenta")
+    print("2. Depositar")
+    print("3. Retirar")
+    print("4. Consultar saldo")
+    print("0. salir")
 
     opcion = int(input())
-
     if opcion == 1:
-        nombre = input("Ingrese el nombre del producto: ")
-        precio = float(input("Ingrese el precio: "))
-        cantidad = int(input("Ingrese la cantidad: "))
-        codigo = int(input("Ingrese el código: "))
-
-        nuevo_producto = Producto(nombre, precio, cantidad, codigo)
-        lista_productos.append(nuevo_producto)
-        print("Producto agregado exitosamente")
+        nombre = input("Ingrese el nombre del titular: ")
+        nueva_cuenta = Cuenta(nombre)
+        lista_cuentas.append(nueva_cuenta)
+        print("Cuenta creada exitosamente. Su número de cuenta es: ", nueva_cuenta.numero_cuenta)
 
     elif opcion == 2:
-        codigo_producto = int(input("Ingrese el código del producto que quiere vender: "))
+        numero_cuenta = int(input("Ingrese el número de cuenta: "))
         existe = False
-        for producto in lista_productos:
-            if producto.codigo == codigo_producto:
-                cantidad_venta = int(input("Cuánto de ese producto va a vender: "))
-                producto.vender(cantidad_venta)
+        for cuenta in lista_cuentas:
+            if cuenta.numero_cuenta == numero_cuenta:
                 existe = True
-                break
-        
+                cantidad = float(input("Ingrese la cantidad a depositar: "))
+                nuevo_saldo = cuenta.depositar(cantidad)
         if existe == False:
-            print("Este producto no existe")
+            print("Cuenta no exisite")
 
     elif opcion == 3:
-        for producto in lista_productos:
-            print("Nombre: ", producto.nombre)
-            print("Cantidad disponible: ", producto.cantidad)
-            print("\n")
+        numero_cuenta = int(input("Ingrese el número de cuenta: "))
+        existe = False
+        for cuenta in lista_cuentas:
+            if cuenta.numero_cuenta == numero_cuenta:
+                existe = True
+                cantidad = float(input("Ingrese la cantidad a retirar: "))
+                nuevo_saldo = cuenta.retirar(cantidad)
+
+                if nuevo_saldo >= 0:
+                    print("Retiro exitoso. Su nuevo saldo es: ", nuevo_saldo)
+        if existe == False: 
+            print("Cuenta no existe")
+   
+    elif opcion == 4:
+        numero_cuenta = int(input("Ingrese el número de cuenta: "))
+        existe = False
+        for cuenta in lista_cuentas:
+            if cuenta.numero_cuenta == numero_cuenta:
+                existe = True
+                print("Su saldo es: ", cuenta.consultar())
 
     elif opcion == 0:
         print("Hasta luego")
         break
+    
     else:
         print("Opción no válida")
+
+
+
