@@ -83,6 +83,8 @@ while True:
     else:
         print("Opción no válida")
 
-        
+# Decidimos hacerlo con una lista ya que necesitabamos ir agregando los libros y la tupla no permitiria hacer esto ya que necesita valores predeterminados
+
+# Hecho por: Isabella Quintero Gutierrez y Jerónimo Pérez Macías 
     
 

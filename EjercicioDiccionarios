@@ -2,7 +2,7 @@ inventario = {
     "Cuaderno": 15,
     "Lápiz": 40,
     "Borrador": 0,
-    "Marador": 10,
+    "Marcador": 10,
     "Regla": 5, 
 }
 
@@ -12,7 +12,7 @@ while True:
     print("Elija la opción que desea realizar")
     print("1. Agregar producto")
     print("2. Vender producto")
-    print("3. Mostrar inventarios")
+    print("3. Mostrar inventario")
     print("0. Salir")
     opcion = int(input())
 
