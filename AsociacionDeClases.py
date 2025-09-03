@@ -30,7 +30,7 @@ class GrupoAsignatura:
         return promedio
     
     def MostrarEstudiantes(self):
-        return  "La cantidad de estudiantes es:" ,len(self.estudiante)
+        return "La cantidad de estudiantes es:" ,len(self.estudiante)
     
 profesor = Profesor("Juan", 35, 5)
 poo = GrupoAsignatura("Programación orientada a objetos", "M-V 10-12", "62", profesor)
