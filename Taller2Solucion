@@ -1,0 +1,121 @@
+class Flota:
+    def __init__(self, vehiculos):
+        self.vehiculos = []
+
+    def agregar_vehiculo(self, vehiculo):
+        self.vehiculos.append(vehiculo)
+    
+    def eliminar_vehiculo(self, vehiculo):
+        self.vehiculos.remove(vehiculo) 
+    
+    def contar_vehiculos(self):
+        return print('La cantidad de vehiculos activos en la flota es:', len(self.vehiculos))
+    
+class Vehiculo:
+    def __init__(self, placa, motor):
+        self.placa = placa
+        self.motor = motor
+
+
+    def apagar_motor(self):
+        self.motor = False
+        return print('El motor del vehiculo con placa', self.placa, 'está apagado')
+    
+    def encender_motor(self):
+        self.motor = True
+        return print('El motor del vehiculo con placa', self.placa, 'está encendido')
+    
+class Motor:
+    def __init__(self, tipo, estado):
+        self.tipo = tipo
+        self.estado = estado
+
+lista_vehiculos = []
+while True:
+    print('Bienvenido al sistema de gestión de flotas')
+    print('Seleccione la opción deseada:')
+    print('1. Crear flota')
+    print('2. Crear vehículo')
+    print('3. Eliminar vehículo')   
+    print('4. Contar vehículos')
+    print('5. Encender motor de un vehículo')
+    print('6. Apagar motor de un vehículo')
+    print('7.Consular existencia de vehículo por placa ')
+    print('0. Salir')
+    opcion = int(input())
+    
+    if opcion == 1:
+        flota = Flota([])
+        print('Flota creada correctamente')
+    
+    elif opcion == 2:
+        print('Ingrese la placa del vehículo:')
+        placa = input()
+        print('Ingrese el tipo de motor del vehículo:')
+        tipo_motor = input()
+        motor = Motor(tipo_motor, False)
+        vehiculo = Vehiculo(placa, motor)
+        lista_vehiculos.append(vehiculo)
+        flota.agregar_vehiculo(vehiculo)
+        print('Vehículo agregado correctamente')
+    
+    elif opcion == 3:
+        print('Ingrese la placa del vehículo a eliminar:')
+        placa = input()
+        vehiculo_a_eliminar = None
+        for vehiculo in flota.vehiculos:
+            if vehiculo.placa == placa:
+                vehiculo_a_eliminar = vehiculo
+                break
+        if vehiculo_a_eliminar:
+            flota.eliminar_vehiculo(vehiculo_a_eliminar)
+            print('Vehículo eliminado correctamente')
+        else:
+            print('Vehículo no encontrado')
+
+    elif opcion == 4:
+        flota.contar_vehiculos()
+
+    elif opcion == 5:
+        print('Ingrese la placa del vehículo cuyo motor desea encender:')
+        placa = input()
+        vehiculo_a_encender = None
+        for vehiculo in flota.vehiculos:
+            if vehiculo.placa == placa:
+                vehiculo_a_encender = vehiculo
+                break
+        if vehiculo_a_encender:
+            vehiculo_a_encender.encender_motor()
+        else:
+            print('Vehículo no encontrado')
+
+    elif opcion == 6:
+        print('Ingrese la placa del vehículo cuyo motor desea apagar:')
+        placa = input()
+        vehiculo_a_apagar = None
+        for vehiculo in flota.vehiculos:
+            if vehiculo.placa == placa:
+                vehiculo_a_apagar = vehiculo
+                break
+        if vehiculo_a_apagar:
+            vehiculo_a_apagar.apagar_motor()
+        else:
+            print('Vehículo no encontrado')
+    
+    elif opcion == 7:
+        print('Ingrese la placa del vehículo a consultar:')
+        placa = input()
+        vehiculo_encontrado = False
+        for vehiculo in lista_vehiculos:
+            if vehiculo.placa == placa:
+                print('El vehículo con placa', placa, 'existe')
+                vehiculo_encontrado = True
+                break       
+            else:
+                print('El vehículo con placa', placa, 'no existe')
+    
+    elif opcion == 0:
+        print('Hasta luego')
+        break  
+    else:
+        print('Opción no válida')
