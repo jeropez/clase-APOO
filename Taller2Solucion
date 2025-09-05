@@ -1,5 +1,5 @@
 class Flota:
-    def __init__(self, vehiculos):
+    def __init__(self):
         self.vehiculos = []
 
     def agregar_vehiculo(self, vehiculo):
