@@ -1,0 +1,49 @@
+class Paciente:
+    def __init__(self, nombre, edad, genero, documento, especialidad_necesitada):
+        self.nombre = nombre
+        self.edad = edad
+        self.genero = genero
+        self.documento = documento
+        self.especialidad_necesitada = especialidad_necesitada
+
+    def mostrar_informacion(self):
+        print(f'Nombre: {self.nombre}, Edad: {self.edad}, Género: {self.genero}, Documento: {self.documento}')
+
+    def pedir_cita(self):
+        print(f'{self.nombre} ha solicitado una cita con un especialista en {self.especialidad_necesitada}')
+
+class Medico:
+    def __init__(self, nombre, especialidad, consultorio):
+        self.nombre = nombre
+        self.especialidad = especialidad
+        self.consultorio = consultorio
+    
+    def mostrar_informacion_paciente(self, paciente):
+        paciente.mostrar_informacion()
+
+    def realizar_cita(self, paciente):
+        paciente.pedir_cita()
+        print(f'El médico {self.nombre}, especialista en {self.especialidad}, atenderá a {paciente.nombre}')
+
+class Cita:
+    def __init__(self, paciente, medico, fecha, hora, consultorio, especialidad):
+        self.paciente = paciente
+        self.medico = medico
+        self.fecha = fecha
+        self.hora = hora
+        self.consultorio = consultorio
+        self.especialidad = especialidad
+
+    def mostrar_detalles_cita(self):
+        print(f'Cita programada para {self.paciente.nombre} con el Dr. {self.medico.nombre} con el area de {self.especialidad} el {self.fecha} a las {self.hora} en el consultorio {self.consultorio}')
+
+    def realizar_cita(self):
+        print(f'La cita de {self.paciente.nombre} con el Dr. {self.medico.nombre} se ha realizado exitosamente.')
+
+class Especialidad(Medico):
+    def __init__(self, nombre, especialidad, consultorio, area):
+        super().__init__(nombre, especialidad, consultorio)
+        self.area = area
+
+ 
+
