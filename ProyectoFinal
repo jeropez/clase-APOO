@@ -40,10 +40,5 @@ class Cita:
     def realizar_cita(self):
         print(f'La cita de {self.paciente.nombre} con el Dr. {self.medico.nombre} se ha realizado exitosamente.')
 
-class Especialidad(Medico):
-    def __init__(self, nombre, especialidad, consultorio, area):
-        super().__init__(nombre, especialidad, consultorio)
-        self.area = area
 
- 
 

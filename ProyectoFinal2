@@ -1,0 +1,91 @@
+class Paciente:
+    def __init__(self, nombre: str, documento: int, edad: int, especialidad_necesitada: str, genero: str):
+        self.nombre = nombre
+        self.documento = documento
+        self.edad = edad
+        self.especialidad_necesitada = especialidad_necesitada
+        self.genero = genero
+        self.cita = None  # Relación 1:1 con Cita
+
+    def pedir_cita(self, medico, fecha: str, hora: str):
+        if medico.especialidad != self.especialidad_necesitada:
+            print(f"No se puede asignar cita: el médico {medico.nombre} no coincide con la especialidad requerida ({self.especialidad_necesitada}).")
+            return None
+        self.cita = Cita(fecha, hora, medico, self)
+        print(f"Cita creada exitosamente para el/la paciente {self.nombre}.")
+        return self.cita
+
+    def mostrar_informacion(self):
+        print("----- Información del Paciente -----")
+        print(f"Nombre: {self.nombre}")
+        print(f"Documento: {self.documento}")
+        print(f"Edad: {self.edad}")
+        print(f"Especialidad Necesitada: {self.especialidad_necesitada}")
+        print(f"Género: {self.genero}")
+        if self.cita:
+            print(f"Tiene cita asignada con el Dr. {self.cita.medico.nombre}.")
+
+
+class Medico:
+    def __init__(self, nombre: str, especialidad: str, consultorio: int):
+        self.nombre = nombre
+        self.especialidad = especialidad
+        self.consultorio = consultorio
+        self.cita_asignada = None  # Guarda la cita actual
+
+    def atender_paciente(self):
+        if self.cita_asignada:
+            print(f"El Dr. {self.nombre} ha atendido al paciente {self.cita_asignada.paciente.nombre}.")
+            # Eliminar la cita (composición)
+            self.cita_asignada = None
+        else:
+            print(f"El Dr. {self.nombre} no tiene pacientes asignados en este momento.")
+
+    def mostrar_informacion(self):
+        print("----- Información del Médico -----")
+        print(f"Nombre: {self.nombre}")
+        print(f"Especialidad: {self.especialidad}")
+        print(f"Consultorio: {self.consultorio}")
+        if self.cita_asignada:
+            print(f"Tiene una cita con el paciente {self.cita_asignada.paciente.nombre}.")
+
+
+class Cita:
+    def __init__(self, fecha: str, hora: str, medico: Medico, paciente: Paciente):
+        self.fecha = fecha
+        self.hora = hora
+        self.medico = medico
+        self.especialidad = paciente.especialidad_necesitada  # Desde paciente
+        self.consultorio = medico.consultorio  # Desde médico
+        self.paciente = paciente
+
+        # Vincular la cita al médico
+        medico.cita_asignada = self
+
+    def mostrar_informacion(self):
+        print("----- Información de la Cita -----")
+        print(f"Fecha: {self.fecha}")
+        print(f"Hora: {self.hora}")
+        print(f"Especialidad: {self.especialidad}")
+        print(f"Consultorio: {self.consultorio}")
+        print(f"Médico: {self.medico.nombre}")
+        print(f"Paciente: {self.paciente.nombre}")
+
+# Ejemplo de uso
+if __name__ == "__main__":
+    # Crear un médico
+    medico1 = Medico("Dr. Juan Pérez", "Cardiología", 101)
+    medico1.mostrar_informacion()
+
+    # Crear un paciente
+    paciente1 = Paciente("Ana Gómez", 12345678, 30, "Cardiología", "Femenino")
+    paciente1.mostrar_informacion()
+
+    # Paciente pide una cita con el médico
+    cita1 = paciente1.pedir_cita(medico1, "2024-07-15", "10:00 AM")
+    if cita1:
+        cita1.mostrar_informacion()
+
+    # Médico atiende al paciente
+    medico1.atender_paciente()
+    medico1.mostrar_informacion()
