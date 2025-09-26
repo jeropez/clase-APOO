@@ -1,5 +1,5 @@
 class Flota:
-    def __init__(self):
+    def __init__(self, vehiculos):
         self.vehiculos = []
 
     def agregar_vehiculo(self, vehiculo):
@@ -118,4 +118,4 @@ while True:
         print('Hasta luego')
         break  
     else:
-        print('Opción no válida')
+        print('Opción no válida') 
