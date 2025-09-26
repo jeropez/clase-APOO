@@ -1,0 +1,25 @@
+class Empleado:
+    def __init__(self, nombre, documento, edad):
+        self.__nombre = nombre
+        self.__documento = documento
+        self.__edad = edad
+
+    def mostrar_datos(self):
+        return {'Nombre: ' : self.__nombre, 'Documento: ' : self.__documento, 'Edad: ' : self.__edad}
+    
+empleado1 = Empleado('Juan', 1111, 35)
+print(empleado1.mostrar_datos())
+
+class Desarrollador(Empleado):
+    def __init__(self, nombre, documento, edad, tipo):
+        super().__init__(nombre, documento, edad)
+        self.__tipo = tipo
+    
+    def mostrar_datos(self):
+       datos = super().mostrar_datos()
+       datos['Tipo'] = self.__tipo
+       return datos
+    
+
+empleado2 = Desarrollador('Jero', 1111, 18, 'Backend')
+print(empleado2.mostrar_datos())
