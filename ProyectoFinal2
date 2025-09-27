@@ -133,8 +133,7 @@ while True:
                 print("No hay médicos registrados.")
                 continue
             print("Médicos disponibles:")
-            for i, m in range(len(medicos)):
-                m = medicos[i]
+            for i, m in enumerate(medicos):
                 print(f"{i + 1}. {m.nombre}")
             medico_index = int(input("Seleccione el número del médico: ")) - 1
             medico = medicos[medico_index]
