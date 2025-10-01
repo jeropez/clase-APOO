@@ -7,8 +7,6 @@ class Empleado:
     def mostrar_datos(self):
         return {'Nombre: ' : self.__nombre, 'Documento: ' : self.__documento, 'Edad: ' : self.__edad}
     
-empleado1 = Empleado('Juan', 1111, 35)
-print(empleado1.mostrar_datos())
 
 class Desarrollador(Empleado):
     def __init__(self, nombre, documento, edad, tipo):
@@ -21,5 +19,29 @@ class Desarrollador(Empleado):
        return datos
     
 
-empleado2 = Desarrollador('Jero', 1111, 18, 'Backend')
-print(empleado2.mostrar_datos())
+class Gerente(Empleado):
+    def __init__(self, nombre, documento, edad, area):
+        super().__init__(nombre, documento, edad)
+        self.__area = area
+        self.__empleados_a_cargo = []
+
+    def mostrar_datos(self):
+        datos = super().mostrar_datos()
+        datos['Area'] = self.__area
+        return datos
+    def mostrar_empleados_a_cargo(self):
+        for empleado in self.__empleados_a_cargo:
+            print(empleado.mostrar_datos())
+    def asignar_empleado(self, empleado):
+        self.__empleados_a_cargo.append(empleado)
+
+
+empleado1 = Gerente('Isaac', 2222, 5, 'Desarrollo')
+
+empleado2 = Desarrollador('Juan', 1111, 30, 'Backend')
+empleado3 = Empleado('Carlos', 3333, 20)
+
+empleado1.asignar_empleado(empleado2)
+empleado1.asignar_empleado(empleado3)
+
+
