@@ -1,6 +1,6 @@
 from modelos import Producto, Cliente
 from pedido import Factura
-from Descuentos import DescuentoVIP, DescuentoVolumen, SinDescuento
+from Descuentos import DescuentoVIP, DescuentoVolumen, SinDescuento, DescuentoCompuesto
 from impuestos import IVA, Excentos
 
 cliente = Cliente(123, 'Juan', False)
@@ -11,7 +11,7 @@ producto3 = Producto(111, 'Computador', 'tecnologia', 2500000)
 mifactura = Factura(cliente)
 
 mifactura.agregar_linea(producto2, 10)
-descuento_a_aplicar = DescuentoVolumen()
+descuento_a_aplicar = DescuentoCompuesto(DescuentoVIP(), DescuentoVolumen())
 impuesto_a_aplicar = IVA()
 
 print(mifactura.calcular_total(descuento_a_aplicar, impuesto_a_aplicar))

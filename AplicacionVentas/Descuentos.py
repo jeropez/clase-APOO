@@ -19,4 +19,10 @@ class DescuentoVolumen(Descuento):
     def aplicar(self, cliente: Cliente, linea: LineaFactura) -> float:
         return 0.15 * linea.subtotal if linea.cantidad >= 10 else 0.0
     
+class DescuentoCompuesto(Descuento):
+
+    def __init__(self, *estrategias: Descuento):
+        self.estrategias: List[Descuento] = list(estrategias)
     
+    def aplicar(self, cliente: Cliente, linea: LineaFactura) -> float:
+        return sum(e.aplicar(cliente, linea) for e in self.estrategias)
