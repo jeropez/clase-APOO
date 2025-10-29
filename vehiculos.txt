@@ -1,0 +1,3 @@
+Auto,Toyota,2015,500000.0
+Camion,Chevrolet,2019,600000.0
+Moto,Nmax,2024,300000.0
